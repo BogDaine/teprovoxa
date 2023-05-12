@@ -5,6 +5,7 @@
     <string name="exit">exit</string>
     <string name="welcome">Welcome</string>
     <string name="username">Username</string>
-    <string name="register">Create an account</string>
+    <string name="register">Create account</string>
+    <string name="login">Log in</string>
 
 </resources>
