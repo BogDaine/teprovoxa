@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/animalsFragment"
-        android:name="com.example.animalsapp.AnimalsFragment"
+        android:name="com.example.teprovoxa.AnimalsFragment"
         android:label="AnimalsFragment" >
         <action
             android:id="@+id/action_animalsFragment_to_animalInfoFragment"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/animalInfoFragment"
-        android:name="com.example.animalsapp.AnimalInfoFragment"
+        android:name="com.example.teprovoxa.AnimalInfoFragment"
         android:label="fragment_animal_info"
         tools:layout="@layout/fragment_animal_info" />
 </navigation>
