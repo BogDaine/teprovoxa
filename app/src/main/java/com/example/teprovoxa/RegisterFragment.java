@@ -3,6 +3,7 @@ package com.example.teprovoxa;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -115,13 +116,14 @@ public class RegisterFragment extends Fragment {
     private void onRegisterSuccess(String usr){
         Context context = ApplicationController.getInstance().getApplicationContext();
 
-        ApplicationController.getInstance().setLoggedUser(usr);
-
         CharSequence text = "User registered";
         int duration = Toast.LENGTH_SHORT;
 
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
+        ApplicationController.getInstance().setLoggedUser(usr);
+        startActivity(new Intent(getActivity(), ChallengesActivity.class));
+        getActivity().finish();
     }
     private void onRegisterFail(byte code){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());

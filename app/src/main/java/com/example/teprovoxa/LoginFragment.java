@@ -3,6 +3,7 @@ package com.example.teprovoxa;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -114,6 +115,8 @@ public class LoginFragment extends Fragment {
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
 
+        startActivity(new Intent(getActivity(), ChallengesActivity.class));
+        getActivity().finish();
     }
 
     private void onLoginFailed(byte code){

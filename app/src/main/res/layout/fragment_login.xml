@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/login_pwd_label"
         android:inputType="textPassword"
-        
+
         android:textAlignment="center"
         android:textSize="30dp"/>
 
