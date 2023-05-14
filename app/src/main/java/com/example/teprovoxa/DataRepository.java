@@ -21,4 +21,11 @@ public class DataRepository {
     public void findUser(String usr, DbOnUserQueryListener listener){
         new FindUserTask(appDatabase, listener).execute(usr);
     }
+
+    public void insertChallenge(Challenge challenge, DbOnSuccessListener listener){
+        new InsertChallengeTask(appDatabase, listener).execute(challenge);
+    }
+    public void findAllChallenges(DbOnChallengeQueryListener listener){
+        new FindAllChallengesTask(appDatabase, listener).execute();
+    }
 }
