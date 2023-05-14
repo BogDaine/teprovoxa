@@ -1,6 +1,8 @@
 package com.example.teprovoxa;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +17,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -84,26 +88,30 @@ public class RegisterFragment extends Fragment {
 
         if(ok_usr && ok_pwd)
         {
-            UserEntity newUser = new UserEntity(username, password);
 
             DataRepository dataRepository = new DataRepository();
-            dataRepository.insertUser(newUser, new DbOnSuccessListener() {
+
+            final boolean[] exists = new boolean[1];
+            dataRepository.findUser(username, new DbOnUserQueryListener() {
                 @Override
-                public void onSuccess() {
-                    onRegisterSuccess(newUser.username);
+                public void onSuccess(List<UserEntity> items) {
+                    if(!items.isEmpty()){
+                        onRegisterFail((byte)2);
+                        return;
+                    }
+                    dataRepository.insertUser(new UserEntity(username, password), new DbOnSuccessListener() {
+                        @Override
+                        public void onSuccess() {
+                            onRegisterSuccess(username);
+                        }
+                    });
                 }
             });
-            //boolean exists = (!userDao.findByName(username).isEmpty());
-            //if(exists)
-            //    {
-            //        return;
-            //    }
-            //userDao.insertAll(newUser);
             return;
         }
-        if(!ok_usr){}
-        if(!ok_pwd){}
+        onRegisterFail((byte)1);
     }
+
     private void onRegisterSuccess(String usr){
         Context context = ApplicationController.getInstance().getApplicationContext();
 
@@ -114,5 +122,32 @@ public class RegisterFragment extends Fragment {
 
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
+    }
+    private void onRegisterFail(byte code){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage("Write your message here.");
+        builder.setCancelable(true);
+
+        builder.setPositiveButton(
+                "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        switch(code){
+            case 1:
+                builder.setMessage("Username and password must be longer than 3 characters and not contain spaces.");
+                break;
+            case 2:
+                builder.setMessage("Username is taken.");
+                break;
+            default:
+                builder.setMessage("Something didn't work, but we don't know what. This shouldn't have happened.");
+                break;
+        }
+        AlertDialog alert11 = builder.create();
+        alert11.show();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.teprovoxa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DataRepository {
@@ -16,5 +17,8 @@ public class DataRepository {
 
     public void insertUser(UserEntity newUser, DbOnSuccessListener listener){
         new InsertUserTask(appDatabase, listener).execute(newUser);
+    }
+    public void findUser(String usr, DbOnUserQueryListener listener){
+        new FindUserTask(appDatabase, listener).execute(usr);
     }
 }

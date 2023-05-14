@@ -17,30 +17,50 @@
         android:textSize="60dp"
         android:text="@string/welcome"
         />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/reg_usr_label"
+        app:layout_constraintTop_toBottomOf="@id/reg_welcometext"
+        android:text="@string/username"
+        android:textAlignment="center"
+        android:layout_marginTop="100dp"
+        />
     <EditText
         android:id="@+id/reg_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/reg_welcometext"
-        android:layout_marginTop="100dp"
+        app:layout_constraintTop_toBottomOf="@+id/reg_usr_label"
+
 
         android:textAlignment="center"
         android:textSize="30dp"
 
-        android:inputType="text"
-        android:text="@string/username" />
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/reg_pwd_label"
+        app:layout_constraintTop_toBottomOf="@id/reg_username"
+        android:text="@string/password"
+        android:textAlignment="center"
+        android:layout_marginTop="100dp"
+        />
+
     <EditText
         android:id="@+id/reg_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/reg_username"
+        app:layout_constraintTop_toBottomOf="@+id/reg_pwd_label"
 
-        android:layout_marginTop="100dp"
+
         android:textAlignment="center"
         android:textSize="30dp"
 
-        android:inputType="textPassword"
-        android:text="@string/hello_blank_fragment" />
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/register_btn"
@@ -49,7 +69,6 @@
         app:layout_constraintTop_toBottomOf="@id/reg_password"
         android:textSize="40dp"
         android:textAlignment="center"
-        android:layout_marginTop="100dp"
         android:text="@string/register"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

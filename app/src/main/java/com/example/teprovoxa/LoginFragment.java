@@ -1,5 +1,8 @@
 package com.example.teprovoxa;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +10,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,11 +66,78 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
+
+        Button loginButton = (Button)view.findViewById(R.id.login_btn);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginClicked();
+            }
+        });
+
+        return  view;
     }
 
-    private void login(){
+    private void loginClicked(){
+        String username = ((EditText)getView().findViewById(R.id.login_username)).getText().toString(),
+                password = ((EditText)getView().findViewById(R.id.login_password)).getText().toString();
+        DataRepository dataRepository = new DataRepository();
 
+        dataRepository.findUser(username, new DbOnUserQueryListener() {
+            @Override
+            public void onSuccess(List<UserEntity> items) {
+                if(items.isEmpty()){
+                    onLoginFailed((byte)1);
+                    return;
+                }
+                if(items.get(0).password.equals(password)){
+                    onLoginSuccess(username);
+                    return;
+                }
+                onLoginFailed((byte)1);
+            }
+        });
+
+    }
+    private void onLoginSuccess(String usr){
+
+        ApplicationController.getInstance().setLoggedUser(usr);
+
+        Context context = ApplicationController.getInstance().getApplicationContext();
+
+        ApplicationController.getInstance().setLoggedUser(usr);
+
+        CharSequence text = "Logged in";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
+    }
+
+    private void onLoginFailed(byte code){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage("Write your message here.");
+        builder.setCancelable(true);
+
+        builder.setPositiveButton(
+                "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        switch(code){
+            case 1:
+                builder.setMessage("Username and/or password incorrect.");
+                break;
+            default:
+                builder.setMessage("Something didn't work, but we don't know what. This shouldn't have happened.");
+                break;
+        }
+        AlertDialog alert11 = builder.create();
+        alert11.show();
     }
 }
