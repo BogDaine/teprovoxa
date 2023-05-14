@@ -1,22 +1,26 @@
+package com.example.teprovoxa;
+
 import android.os.AsyncTask;
 
-import com.example.teprovoxa.ApplicationController;
-import com.example.teprovoxa.DataRepository;
+import com.example.teprovoxa.AppDatabase;
+import com.example.teprovoxa.DbOnSuccessListener;
 import com.example.teprovoxa.UserEntity;
 
 import java.util.List;
 
 
 public class InsertUserTask extends AsyncTask<UserEntity, Void, Void> {
-    private DataRepository.OnSuccesListener listener;
-
-    public InsertUserTask(DataRepository.OnSuccesListener l){
+    private DbOnSuccessListener listener;
+    private AppDatabase appDatabase;
+    public InsertUserTask(AppDatabase db, DbOnSuccessListener l)
+    {
+        appDatabase = db;
         listener = l;
     }
 
     @Override
     protected Void doInBackground(UserEntity... userEntities) {
-        ApplicationController.getAppDatabase().userDao().insertAll(userEntities[0]);
+       appDatabase.userDao().insertAll(userEntities[0]);
         return null;
     }
 

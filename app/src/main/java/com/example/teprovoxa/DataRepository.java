@@ -13,7 +13,8 @@ public class DataRepository {
     public DataRepository(){
         appDatabase = ApplicationController.getAppDatabase();
     }
-    public void insertUser(UserEntity newUser){
 
+    public void insertUser(UserEntity newUser, DbOnSuccessListener listener){
+        new InsertUserTask(appDatabase, listener).execute(newUser);
     }
 }

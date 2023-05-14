@@ -1,5 +1,6 @@
 package com.example.teprovoxa;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -66,14 +68,14 @@ public class RegisterFragment extends Fragment {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                register();
+                registerClicked();
             }
         });
 
         return view;
     }
 
-    private void register(){
+    private void registerClicked(){
         String username = ((EditText)getView().findViewById(R.id.reg_username)).getText().toString(),
                 password = ((EditText)getView().findViewById(R.id.reg_password)).getText().toString();
 
@@ -82,18 +84,35 @@ public class RegisterFragment extends Fragment {
 
         if(ok_usr && ok_pwd)
         {
-            AppDatabase db = Room.databaseBuilder(getContext(), AppDatabase.class, "app-database").build();
-            UserDao userDao = db.userDao();
             UserEntity newUser = new UserEntity(username, password);
-            boolean exists = (!userDao.findByName(username).isEmpty());
-            if(exists)
-                {
-                    return;
+
+            DataRepository dataRepository = new DataRepository();
+            dataRepository.insertUser(newUser, new DbOnSuccessListener() {
+                @Override
+                public void onSuccess() {
+                    onRegisterSuccess(newUser.username);
                 }
-            userDao.insertAll(newUser);
+            });
+            //boolean exists = (!userDao.findByName(username).isEmpty());
+            //if(exists)
+            //    {
+            //        return;
+            //    }
+            //userDao.insertAll(newUser);
             return;
         }
         if(!ok_usr){}
         if(!ok_pwd){}
+    }
+    private void onRegisterSuccess(String usr){
+        Context context = ApplicationController.getInstance().getApplicationContext();
+
+        ApplicationController.getInstance().setLoggedUser(usr);
+
+        CharSequence text = "User registered";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 }
