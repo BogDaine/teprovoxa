@@ -3,10 +3,16 @@ package com.example.teprovoxa;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,7 +60,40 @@ public class RegisterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false);
+        View view = inflater.inflate(R.layout.fragment_register, container, false);
+
+        Button registerBtn = (Button) view.findViewById(R.id.register_btn);
+        registerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                register();
+            }
+        });
+
+        return view;
+    }
+
+    private void register(){
+        String username = ((EditText)getView().findViewById(R.id.reg_username)).getText().toString(),
+                password = ((EditText)getView().findViewById(R.id.reg_password)).getText().toString();
+
+        boolean ok_usr = CredentialsValidator.usernameValid(username),
+                ok_pwd = CredentialsValidator.passwordValid(password);
+
+        if(ok_usr && ok_pwd)
+        {
+            AppDatabase db = Room.databaseBuilder(getContext(), AppDatabase.class, "app-database").build();
+            UserDao userDao = db.userDao();
+            UserEntity newUser = new UserEntity(username, password);
+            boolean exists = (!userDao.findByName(username).isEmpty());
+            if(exists)
+                {
+                    return;
+                }
+            userDao.insertAll(newUser);
+            return;
+        }
+        if(!ok_usr){}
+        if(!ok_pwd){}
     }
 }
