@@ -7,13 +7,20 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Debug;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChallengesFragment extends Fragment {
 
@@ -27,19 +34,13 @@ public class ChallengesFragment extends Fragment {
     private String mParam2;
 
     private DataRepository dataRepository = new DataRepository();
+    private ArrayList<Challenge> challenges;
+    private RecyclerView challengesRv;
+    private ChallengesAdapter challengesAdapter;
 
     public ChallengesFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ChallengesFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static ChallengesFragment newInstance(String param1, String param2) {
         ChallengesFragment fragment = new ChallengesFragment();
@@ -65,6 +66,7 @@ public class ChallengesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_challenges, container, false);
         Button addButton = (Button) view.findViewById(R.id.add_challenge_btn);
         Button logoutButton = (Button) view.findViewById(R.id.app_logout_btn);
+        challengesRv = (RecyclerView)view.findViewById(R.id.challenges_rv);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,8 +81,34 @@ public class ChallengesFragment extends Fragment {
                 logoutClicked();
             }
         });
-
+        setupRecyclerView();
         return view;
+    }
+    private void setupRecyclerView(){
+
+        Context context = this.getContext();
+        dataRepository.findAllChallenges(new DbOnChallengeQueryListener() {
+            @Override
+            public void onSuccess(List<Challenge> items) {
+                challenges = new ArrayList<Challenge>(items);
+                challengesAdapter = new ChallengesAdapter(challenges, new ChallengesAdapter.OnChallengeClickedListener() {
+                    @Override
+                    public void onChallengeClicked(int position) {
+                        onChallengeItemClicked(position);
+                    }
+                });
+
+                challengesRv.setAdapter(challengesAdapter);
+                challengesRv.setLayoutManager(new LinearLayoutManager(context));
+            }
+        });
+    }
+    private void onChallengeItemClicked(int position){
+        Context context = ApplicationController.getInstance().getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, "challenge " + position + "clicked", duration);
+        toast.show();
     }
 
     private void addChallengeClicked(){
@@ -98,14 +126,10 @@ public class ChallengesFragment extends Fragment {
                         String text = ((EditText)view.findViewById(R.id.newchlg_text)).getText().toString();
 
                         addChallenge(title, text);
-                        // Send the positive button event back to the host activity
-                        //listener.onDialogPositiveClick(NoticeDialogFragment.this);
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // Send the negative button event back to the host activity
-                        //listener.onDialogNegativeClick(NoticeDialogFragment.this);
                     }
                 });
         builder.setView(view);
@@ -114,6 +138,19 @@ public class ChallengesFragment extends Fragment {
 
         builder.create().show();
     }
+    private void getAllChallenges(){
+        dataRepository.findAllChallenges(new DbOnChallengeQueryListener() {
+            @Override
+            public void onSuccess(List<Challenge> items) {
+                setChallenges(items);
+            }
+        });
+    }
+    private void setChallenges(List<Challenge> items){
+        challenges = new ArrayList<Challenge>(items);
+        challengesAdapter.notifyDataSetChanged();
+    }
+
     private void addChallenge(String title, String text){
         if(title.length() < 3){
             return;
