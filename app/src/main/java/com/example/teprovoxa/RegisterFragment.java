@@ -116,10 +116,9 @@ public class RegisterFragment extends Fragment {
     private void onRegisterSuccess(String usr){
         Context context = ApplicationController.getInstance().getApplicationContext();
 
-        CharSequence text = "User registered";
         int duration = Toast.LENGTH_SHORT;
 
-        Toast toast = Toast.makeText(context, text, duration);
+        Toast toast = Toast.makeText(context, R.string.register_success, duration);
         toast.show();
         ApplicationController.getInstance().setLoggedUser(usr);
         startActivity(new Intent(getActivity(), ChallengesActivity.class));
@@ -127,11 +126,9 @@ public class RegisterFragment extends Fragment {
     }
     private void onRegisterFail(byte code){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setMessage("Write your message here.");
-        builder.setCancelable(true);
 
         builder.setPositiveButton(
-                "OK",
+                R.string.ok,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
@@ -140,13 +137,13 @@ public class RegisterFragment extends Fragment {
 
         switch(code){
             case 1:
-                builder.setMessage("Username and password must be longer than 3 characters and not contain spaces.");
+                builder.setMessage(R.string.bad_credentials_format);
                 break;
             case 2:
-                builder.setMessage("Username is taken.");
+                builder.setMessage(R.string.username_taken);
                 break;
             default:
-                builder.setMessage("Something didn't work, but we don't know what. This shouldn't have happened.");
+                builder.setMessage(R.string.generic_error);
                 break;
         }
         AlertDialog alert11 = builder.create();

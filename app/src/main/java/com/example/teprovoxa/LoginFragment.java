@@ -109,10 +109,9 @@ public class LoginFragment extends Fragment {
 
         ApplicationController.getInstance().setLoggedUser(usr);
 
-        CharSequence text = "Logged in";
         int duration = Toast.LENGTH_SHORT;
 
-        Toast toast = Toast.makeText(context, text, duration);
+        Toast toast = Toast.makeText(context, R.string.login_success, duration);
         toast.show();
 
         startActivity(new Intent(getActivity(), ChallengesActivity.class));
@@ -121,8 +120,6 @@ public class LoginFragment extends Fragment {
 
     private void onLoginFailed(byte code){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setMessage("Write your message here.");
-        builder.setCancelable(true);
 
         builder.setPositiveButton(
                 "OK",
@@ -134,10 +131,10 @@ public class LoginFragment extends Fragment {
 
         switch(code){
             case 1:
-                builder.setMessage("Username and/or password incorrect.");
+                builder.setMessage(R.string.bad_credentials);
                 break;
             default:
-                builder.setMessage("Something didn't work, but we don't know what. This shouldn't have happened.");
+                builder.setMessage(R.string.generic_error);
                 break;
         }
         AlertDialog alert11 = builder.create();

@@ -21,4 +21,11 @@ public class Challenge {
 
     @ColumnInfo(name = "text")
     public String text;
+
+    Challenge(){}
+    Challenge(String cTitle, String cText, String cUsername){
+        title = cTitle;
+        text = cText;
+        username = cUsername;
+    }
 }

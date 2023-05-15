@@ -8,6 +8,22 @@
     <string name="password">Password</string>
     <string name="register">Create account</string>
     <string name="login">Log in</string>
+    <string name="logout">Log out</string>
+    <string name="add_challenge">Add challenge</string>
     <string name="remember_me">remember me</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="login_success">Logged in</string>
+    <string name="register_success">Account created</string>
+    <string name="challenge_add_success">Challenge added</string>
+    <string name="bad_credentials_format">Username and password must be longer than 3 characters and not contain spaces.</string>
+    <string name="bad_credentials">Username/password incorrect</string>
+    <string name="username_taken">Username is taken.</string>
+    <string name="generic_error">Something didn\'t work, but we don\'t know what. This shouldn\'t have happened.</string>
+
 
 </resources>
