@@ -24,6 +24,13 @@
     <string name="bad_credentials">Username/password incorrect</string>
     <string name="username_taken">Username is taken.</string>
     <string name="generic_error">Something didn\'t work, but we don\'t know what. This shouldn\'t have happened.</string>
+    <string name="comment_post_success">Comment posted</string>
+    <string name="pick_image_intent_text">\"\"</string>
+    <string name="camera">camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="choose_img">Choose image</string>
+    <string name="where_from">But where from?</string>
+    <string name="img_pick_success">Image picked</string>
 
 
 </resources>

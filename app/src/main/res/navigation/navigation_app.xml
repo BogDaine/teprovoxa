@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/challengesFragment"
-        android:name="com.example.teprovoxa.ChallengesFragment"
+        android:name="com.example.teprovoxa.fragments.ChallengesFragment"
         android:label="fragment_challenges"
         tools:layout="@layout/fragment_challenges" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/challengeCommentsFragment"
-        android:name="com.example.teprovoxa.ChallengeCommentsFragment"
+        android:name="com.example.teprovoxa.fragments.ChallengeCommentsFragment"
         android:label="fragment_challenge_comments"
         tools:layout="@layout/fragment_challenge_comments" />
 </navigation>

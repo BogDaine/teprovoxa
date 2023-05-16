@@ -4,18 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ChallengesFragment">
+    tools:context=".fragments.ChallengesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/challenges_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/app_logout_btn"
         />
     <Button
         android:id="@+id/app_logout_btn"
+
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
 
         android:textSize="20dp"
 
@@ -27,6 +30,9 @@
         android:text="@string/logout"/>
     <Button
         android:id="@+id/add_challenge_btn"
+
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
 
         android:textSize="20dp"
 
