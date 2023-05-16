@@ -13,4 +13,7 @@
     <color name = "good_yellow">#dedd8a</color>
     <color name = "good_blue">#64A4BD</color>
     <color name = "good_orange">#d98d52</color>
+
+    <color name = "primary">#9E4FBF</color>
+
 </resources>

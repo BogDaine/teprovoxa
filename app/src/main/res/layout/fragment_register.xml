@@ -25,7 +25,7 @@
         app:layout_constraintTop_toBottomOf="@id/reg_welcometext"
         android:text="@string/username"
         android:textAlignment="center"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="20dp"
         />
     <EditText
         android:id="@+id/reg_username"
@@ -47,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@id/reg_username"
         android:text="@string/password"
         android:textAlignment="center"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="20dp"
         />
 
     <EditText
@@ -62,13 +62,42 @@
 
         android:inputType="textPassword" />
 
+
+    <TextView
+        android:id="@+id/reg_repeatpwd_label"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        app:layout_constraintTop_toBottomOf="@+id/reg_password"
+        android:text="@string/repeat_password"
+        android:textAlignment="center"
+        android:layout_marginTop="20dp"
+        />
+
+    <EditText
+        android:id="@+id/reg_repeatpassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/reg_repeatpwd_label"
+
+
+        android:textAlignment="center"
+        android:textSize="30dp"
+
+        android:inputType="textPassword" />
+
+
     <Button
+        android:background="@drawable/button_selector"
         android:id="@+id/register_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/reg_password"
+        app:layout_constraintTop_toBottomOf="@+id/reg_repeatpassword"
         android:textSize="40dp"
         android:textAlignment="center"
+        android:textColor="@color/color_selector"
         android:text="@string/register"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

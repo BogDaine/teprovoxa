@@ -97,7 +97,7 @@ public class LoginFragment extends Fragment {
         if(rememberMe.isChecked())
             sharedPreferences.edit().putString(R.string.app_name+".username", usr).apply();
         else
-            sharedPreferences.edit().remove(R.string.app_name+".username").commit();
+            sharedPreferences.edit().remove(R.string.app_name+".username").apply();
         getActivity().finish();
     }
 

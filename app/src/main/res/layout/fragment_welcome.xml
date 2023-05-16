@@ -12,10 +12,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
+
+
+
         android:textSize="60dp"
         android:text="@string/welcome" />
     <Button
         app:layout_constraintTop_toBottomOf="@id/w_welcometext"
+
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
 
         android:id="@+id/w_login_btn"
         android:layout_width="match_parent"
@@ -24,16 +30,23 @@
         android:textAlignment="center"
         android:textSize="40dp"
         android:text="@string/login"
+        android:textColor="@color/color_selector"
+        android:background="@drawable/button_selector"
         />
 
     <Button
 
         app:layout_constraintTop_toBottomOf="@id/w_login_btn"
 
+
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+
+        android:background="@drawable/button_selector"
         android:id="@+id/w_reg_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:textColor="@color/color_selector"
         android:textAlignment="center"
         android:textSize="40dp"
         android:text="@string/register"

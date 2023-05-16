@@ -45,13 +45,18 @@ public class RegisterFragment extends Fragment {
 
     private void registerClicked(){
         String username = ((EditText)getView().findViewById(R.id.reg_username)).getText().toString(),
-                password = ((EditText)getView().findViewById(R.id.reg_password)).getText().toString();
-
+                password = ((EditText)getView().findViewById(R.id.reg_password)).getText().toString(),
+                passwordRepeat = ((EditText)getView().findViewById(R.id.reg_repeatpassword)).getText().toString();
         boolean ok_usr = CredentialsValidator.usernameValid(username),
                 ok_pwd = CredentialsValidator.passwordValid(password);
 
         if(ok_usr && ok_pwd)
         {
+
+            if(!password.equals(passwordRepeat)){
+                onRegisterFail((byte)3);
+                return;
+            }
 
             DataRepository dataRepository = new DataRepository();
 
@@ -104,6 +109,9 @@ public class RegisterFragment extends Fragment {
                 break;
             case 2:
                 builder.setMessage(R.string.username_taken);
+                break;
+            case 3:
+                builder.setMessage(R.string.passwords_dont_match);
                 break;
             default:
                 builder.setMessage(R.string.generic_error);

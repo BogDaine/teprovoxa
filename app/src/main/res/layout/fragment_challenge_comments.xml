@@ -39,19 +39,35 @@
 
         <Button
             android:id="@+id/btn_post_comment"
+
+            android:layout_marginBottom="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="3dp"
+
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toTopOf="@+id/btn_choose_commentimage"
+            android:background="@drawable/button_selector"
+            android:drawableStart="@drawable/send"
             />
 
         <Button
 
             android:id="@+id/btn_choose_commentimage"
+            android:layout_marginBottom="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="3dp"
+
+
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/button_selector"
+            android:drawableStart="@drawable/add_photo_icon"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
